@@ -38,7 +38,7 @@ export default function App() {
     setBookings((current) => {
       const exists = current.some((item) => item.id === booking.id)
       return exists
-        ? current.map((item) => (item.id === booking.id ? booking : item))
+        ? current.map((item) => (item.id === booking.id ? { ...item, ...booking } : item))
         : [...current, { ...booking, id: crypto.randomUUID() }]
     })
     setEditingBooking(null)
@@ -51,6 +51,13 @@ export default function App() {
 
   function deleteBooking(id) {
     setBookings((current) => current.filter((booking) => booking.id !== id))
+  }
+
+  function cancelBooking(id) {
+    setBookings((current) => current.map((booking) =>
+      booking.id === id ? { ...booking, cancelled: true } : booking,
+    ))
+    setSelectedBooking(null)
   }
 
   return (
@@ -86,6 +93,7 @@ export default function App() {
           booking={selectedBooking}
           onClose={() => setSelectedBooking(null)}
           onEdit={() => editBooking(selectedBooking)}
+          onCancel={() => cancelBooking(selectedBooking.id)}
         />
       )}
     </div>

@@ -5,7 +5,12 @@ import { displayDate } from '../utils/dates'
 export default function BookingCard({ booking, onView, onEdit, onDelete }) {
   return (
     <tr>
-      <td><button className="reference-button" onClick={() => onView(booking)}>{booking.referenceNumber}</button></td>
+      <td>
+        <div className="booking-reference-cell">
+          <button className="reference-button" onClick={() => onView(booking)}>{booking.referenceNumber}</button>
+          {booking.cancelled && <span className="booking-status-cancelled">Cancelled</span>}
+        </div>
+      </td>
       <td>
         <strong className="arrival-date">{displayDate(parseISO(booking.date), 'MMM d, yyyy')}</strong>
         <span className="table-subline">{booking.time}</span>

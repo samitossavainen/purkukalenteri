@@ -14,15 +14,20 @@ export default function BookingsPage({ bookings, onCreate, onView, onEdit, onDel
       return !search || [booking.referenceNumber, booking.truckRegistration, booking.cargoDescription, booking.destination]
         .some((value) => value.toLowerCase().includes(search))
     })
-    .filter((booking) => filter === 'all' || (filter === 'cold' ? booking.temperatureControlled : booking.certificatesRequired))
+    .filter((booking) => {
+      if (filter === 'cancelled') return booking.cancelled === true
+      if (filter === 'cold') return booking.temperatureControlled
+      if (filter === 'certificates') return booking.certificatesRequired
+      return true
+    })
     .sort((a, b) => `${a.date} ${a.time}`.localeCompare(`${b.date} ${b.time}`)), [bookings, query, filter])
 
   function exportBookings() {
-    const header = ['Reference', 'Date', 'Time', 'Truck plate number', 'Cargo', 'Destination', 'Temperature range check', 'Check for CoA']
+    const header = ['Reference', 'Date', 'Time', 'Truck plate number', 'Cargo', 'Destination', 'Temperature range check', 'Check for CoA', 'Status']
     const rows = filteredBookings.map((booking) => [
       booking.referenceNumber, booking.date, booking.time, booking.truckRegistration,
       booking.cargoDescription, booking.destination, booking.temperatureControlled ? 'Yes' : 'No',
-      booking.certificatesRequired ? 'Yes' : 'No',
+      booking.certificatesRequired ? 'Yes' : 'No', booking.cancelled ? 'Cancelled' : 'Scheduled',
     ])
     const csv = [header, ...rows].map((row) => row.map((field) => `"${String(field).replaceAll('"', '""')}"`).join(',')).join('\n')
     const url = URL.createObjectURL(new Blob([csv], { type: 'text/csv;charset=utf-8' }))

@@ -9,7 +9,8 @@ export default function CalendarPage({ bookings, onCreate, onView }) {
   const [weekStart, setWeekStart] = useState(() => mondayOf(new Date()))
   const days = useMemo(() => Array.from({ length: 5 }, (_, index) => shiftDate(weekStart, index)), [weekStart])
   const today = localDate(new Date())
-  const weekBookings = bookings.filter((booking) => days.some((day) => localDate(day) === booking.date))
+  const activeBookings = bookings.filter((booking) => !booking.cancelled)
+  const weekBookings = activeBookings.filter((booking) => days.some((day) => localDate(day) === booking.date))
   const todayCount = weekBookings.filter((booking) => booking.date === today).length
 
   return (
@@ -39,7 +40,7 @@ export default function CalendarPage({ bookings, onCreate, onView }) {
       </section>
 
       <CalendarGrid
-        bookings={bookings}
+        bookings={activeBookings}
         days={days}
         today={today}
         onCreate={onCreate}

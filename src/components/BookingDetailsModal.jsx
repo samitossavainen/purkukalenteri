@@ -1,7 +1,7 @@
 import { Button, Modal } from 'react-bootstrap'
 import { format, parseISO } from 'date-fns'
 
-export default function BookingDetailsModal({ booking, onClose, onEdit }) {
+export default function BookingDetailsModal({ booking, onClose, onEdit, onCancel }) {
   return (
     <Modal show onHide={onClose} centered className="booking-details-modal">
       <Modal.Header closeButton>
@@ -12,6 +12,11 @@ export default function BookingDetailsModal({ booking, onClose, onEdit }) {
         </div>
       </Modal.Header>
       <Modal.Body>
+        {booking.cancelled && (
+          <div className="booking-cancelled-notice" role="status">
+            This reservation was cancelled. Its time slot is available for a new booking.
+          </div>
+        )}
         <div className="details-grid">
           <div className="detail-item"><span>Truck plate number</span><strong>{booking.truckRegistration || 'Not provided'}</strong></div>
           <div className="detail-item"><span>Destination</span><strong>{booking.destination || 'Not provided'}</strong></div>
@@ -22,6 +27,7 @@ export default function BookingDetailsModal({ booking, onClose, onEdit }) {
       </Modal.Body>
       <Modal.Footer>
         <Button variant="light" className="app-secondary-button" onClick={onClose}>Close</Button>
+        {!booking.cancelled && <Button variant="outline-danger" onClick={onCancel}>Cancel reservation</Button>}
         <Button variant="primary" className="app-primary-button" onClick={onEdit}>
           <span className="edit-glyph">✎</span> Edit booking
         </Button>

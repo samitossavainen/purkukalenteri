@@ -2,18 +2,54 @@
 
 A React app for planning weekday unloading appointments and preparing for incoming deliveries.
 
-The calendar supports one booking per weekday time slot. Selecting a booking opens its details; editing is a separate action. The weather view shows current conditions and the next 12 hourly forecasts for Kuopio, with an estimated icing advisory based on forecast temperature and precipitation. The advisory is informational and does not replace checking actual dock conditions.
+The calendar supports one active booking per weekday time slot. Reservations can be cancelled to free their slots while remaining in booking history and the total booking count. Selecting a booking opens its details; editing is a separate action. The weather view shows current conditions and the next 12 hourly forecasts for Kuopio, with an estimated icing advisory based on forecast temperature and precipitation. The advisory is informational and does not replace checking actual dock conditions.
 
 ## Run locally
 
-Install Node.js 20 or newer, then run:
+### Prerequisites
+
+- Git
+- [Node.js 20 or newer](https://nodejs.org/) (npm is included)
+
+### First-time setup
+
+Clone the repository and enter its folder:
 
 ```sh
-npm install
+git clone https://github.com/samitossavainen/purkukalenteri.git
+cd purkukalenteri
+```
+
+Check that Node.js and npm are available:
+
+```sh
+node --version
+npm --version
+```
+
+Install the exact dependency versions from the lockfile and start Vite:
+
+**Windows PowerShell**
+
+```powershell
+npm.cmd ci
+npm.cmd run dev
+```
+
+**macOS, Linux, or Windows Command Prompt**
+
+```sh
+npm ci
 npm run dev
 ```
 
-Bookings are saved in the browser's local storage. Weather is fetched from the Open-Meteo forecast API for Kuopio, Finland.
+Open the **Local** URL printed by Vite (usually `http://localhost:5173/`). Use this development server rather than VS Code Live Server; Vite is required to run the React application. Stop it with `Ctrl+C`.
+
+If Node.js was just installed, restart VS Code so its terminal picks up the updated PATH. If PowerShell reports that `npm.ps1` cannot be loaded, use the `npm.cmd` commands above; changing the system execution policy is not necessary.
+
+For later sessions, open the project folder and run `npm.cmd run dev` in Windows PowerShell, or `npm run dev` in other terminals. Dependencies only need to be installed again after changing the package files.
+
+Bookings are stored in the browser's local storage, so a fresh browser or device starts with an empty schedule and does not sync bookings with other devices. Weather data is fetched from Open-Meteo and requires an internet connection.
 
 The UI uses React-Bootstrap and Bootstrap, `date-fns` handles calendar dates, and `lucide-react` supplies icons.
 
@@ -28,11 +64,20 @@ Booking dialogs live at the app level because they are opened from both the cale
 
 ## Build
 
+**Windows PowerShell**
+
+```powershell
+npm.cmd run build
+npm.cmd run preview
+```
+
+**macOS, Linux, or Windows Command Prompt**
+
 ```sh
 npm run build
 npm run preview
 ```
 
-## GitHub Pages
+## GitHub Pages (deployment step)
 
-Push this project to a public GitHub repository on the `main` branch and enable **Settings → Pages → GitHub Actions**. The included workflow builds and deploys the app on each push. The Vite base path is derived from the repository name, and hash-based routing keeps app routes working on GitHub Pages.
+GitHub Pages deployment is not required for local development and can be completed as the final project step. When ready, push to the public `main` branch and enable **Settings → Pages → GitHub Actions**. The included workflow builds and deploys the app on each push. The Vite base path is derived from the repository name, and hash-based routing keeps app routes working on GitHub Pages.

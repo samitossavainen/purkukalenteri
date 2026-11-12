@@ -21,6 +21,7 @@ export default function SearchBar({ query, onQueryChange, filter, onFilterChange
         <option value="all">All bookings</option>
         <option value="cold">Temperature range check</option>
         <option value="certificates">Check for CoA</option>
+        <option value="cancelled">Cancelled reservations</option>
       </select>
     </div>
   )

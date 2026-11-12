@@ -139,6 +139,8 @@ button { cursor: pointer; }
 .booking-table tbody tr:last-child td { border-bottom: 0; }
 .reference-button { padding: 0; border: 0; color: #397cc6; background: transparent; font-size: 0.8125rem; font-weight: 700; }
 .reference-button:hover { color: #1b5b9e; text-decoration: underline; }
+.booking-reference-cell { display: flex; flex-direction: column; align-items: flex-start; gap: 4px; }
+.booking-status-cancelled { display: inline-flex; padding: 2px 6px; border-radius: 5px; color: #86551b; background: #fff1d8; font-size: 0.6875rem; font-weight: 700; }
 .arrival-date { display: block; color: #435865; font-size: 0.8125rem; font-weight: 600; white-space: nowrap; }
 .table-subline { display: block; margin-top: 4px; color: #94a0a7; font-size: 0.75rem; }
 .truck-cell { display: flex; align-items: center; gap: 7px; white-space: nowrap; }
@@ -171,6 +173,7 @@ button { cursor: pointer; }
 .detail-item { display: grid; min-height: 57px; align-content: center; gap: 5px; padding: 10px 12px; border: 1px solid #edf0f2; border-radius: 7px; background: #fcfdfd; }
 .detail-item span { color: #8d9aa2; font-size: 0.75rem; }
 .detail-item strong { color: #405765; font-size: 0.8125rem; font-weight: 600; }
+.booking-cancelled-notice { margin-bottom: 12px; padding: 10px 12px; border: 1px solid #f1d9a8; border-radius: 7px; color: #78501b; background: #fff8e9; font-size: 0.8125rem; }
 .details-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
 .detail-wide { grid-column: span 2; }
 .modal-heading { display: flex; align-items: flex-start; justify-content: space-between; gap: 12px; margin-bottom: 20px; }

@@ -39,7 +39,7 @@ export default function BookingModal({ booking, bookings, onClose, onSave }) {
       return false
     }
     const slotTaken = bookings.some((item) =>
-      item.id !== booking.id && item.date === form.date && item.time === form.time,
+      !item.cancelled && item.id !== booking.id && item.date === form.date && item.time === form.time,
     )
     if (slotTaken) {
       setFormError('This time slot is already booked. Choose another available slot.')
