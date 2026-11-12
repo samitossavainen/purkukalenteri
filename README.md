@@ -17,6 +17,15 @@ Bookings are saved in the browser's local storage. Weather is fetched from the O
 
 The UI uses React-Bootstrap and Bootstrap, `date-fns` handles calendar dates, and `lucide-react` supplies icons.
 
+## Source structure
+
+- `src/App.jsx` owns shared bookings, routing, and booking dialogs.
+- `src/pages/` contains the calendar, booking management, and weather screens.
+- `src/components/` contains the navigation, footer, and screen-level UI pieces.
+- `src/utils/` contains shared date, booking, and weather helpers.
+
+Booking dialogs live at the app level because they are opened from both the calendar and booking management screens.
+
 ## Build
 
 ```sh
