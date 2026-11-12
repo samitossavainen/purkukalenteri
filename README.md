@@ -82,4 +82,4 @@ npm run preview
 
 ## GitHub Pages (deployment step)
 
-GitHub Pages deployment is not required for local development and can be completed as the final project step. When ready, push to the public `main` branch and enable **Settings → Pages → GitHub Actions**. The included workflow builds and deploys the app on each push. The Vite base path is derived from the repository name, and hash-based routing keeps app routes working on GitHub Pages.
+GitHub Pages deployment is not required for local development and can be completed as the final project step. The workflow is manual-only, so normal pushes will not attempt to deploy. When ready, enable **Settings → Pages → GitHub Actions** and run **Deploy to GitHub Pages** from the Actions tab. The Vite base path is derived from the repository name, and hash-based routing keeps app routes working on GitHub Pages.
