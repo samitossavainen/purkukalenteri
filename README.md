@@ -36,6 +36,8 @@ npm.cmd ci
 npm.cmd run dev
 ```
 
+On Windows, you can also double-click [startVite.bat](./startVite.bat). It checks the Node.js version, installs dependencies if needed, and opens the browser after Vite starts.
+
 **macOS, Linux, or Windows Command Prompt**
 
 ```sh
