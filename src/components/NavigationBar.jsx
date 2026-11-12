@@ -3,8 +3,6 @@ import { NavLink, useLocation } from 'react-router-dom'
 import {
   ArrowDownToLine,
   CalendarDays,
-  ChevronDown,
-  ChevronRight,
   Cloud,
   Menu,
   Truck,
@@ -31,12 +29,11 @@ export default function NavigationBar({ bookingCount, children }) {
           </div>
         </div>
 
-        <div className="sidebar-label">WORKSPACE</div>
+        <div className="sidebar-label">NAVIGATION</div>
         <nav className="sidebar-nav" aria-label="Main navigation">
           <NavLink to="/" end className={({ isActive }) => `nav-item ${isActive ? 'active' : ''}`}>
             <CalendarDays size={18} />
             <span>Calendar</span>
-            <span className="nav-shortcut">01</span>
           </NavLink>
           <NavLink to="/bookings" className={({ isActive }) => `nav-item ${isActive ? 'active' : ''}`}>
             <Truck size={18} />
@@ -50,21 +47,6 @@ export default function NavigationBar({ bookingCount, children }) {
           </NavLink>
         </nav>
 
-        <div className="sidebar-bottom">
-          <div className="dock-card">
-            <div className="dock-card-icon"><Truck size={17} /></div>
-            <div className="dock-card-copy">
-              <span>Receiving dock</span>
-              <strong>Kuopio, Finland</strong>
-            </div>
-            <span className="status-dot" />
-          </div>
-          <div className="sidebar-footer">
-            <span className="avatar">PK</span>
-            <span className="profile-copy"><strong>Operations team</strong><small>Dock manager</small></span>
-            <ChevronDown size={16} className="profile-chevron" />
-          </div>
-        </div>
       </aside>
 
       {mobileNavOpen && (
@@ -76,13 +58,7 @@ export default function NavigationBar({ bookingCount, children }) {
           <button className="mobile-menu icon-button" onClick={() => setMobileNavOpen((open) => !open)} aria-label="Toggle navigation">
             <Menu size={20} />
           </button>
-          <div className="breadcrumb">
-            <span>Workspace</span>
-            <ChevronRight size={14} />
-            <strong>{location.pathname === '/' ? 'Calendar' : location.pathname.slice(1)}</strong>
-          </div>
           <div className="topbar-right">
-            <div className="today-label"><span className="status-dot" /> Operations active</div>
             <div className="topbar-date">{displayDate(new Date(), 'EEE, MMM d')}</div>
           </div>
         </header>

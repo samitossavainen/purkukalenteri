@@ -9,7 +9,7 @@ export default function SearchBar({ query, onQueryChange, filter, onFilterChange
           value={query}
           onChange={(event) => onQueryChange(event.target.value)}
           placeholder="Search bookings..."
-          aria-label="Search by reference, truck, cargo, or destination"
+          aria-label="Search by reference, truck plate number, cargo, or destination"
         />
       </label>
       <select
@@ -19,8 +19,8 @@ export default function SearchBar({ query, onQueryChange, filter, onFilterChange
         aria-label="Filter bookings"
       >
         <option value="all">All bookings</option>
-        <option value="cold">Temperature controlled</option>
-        <option value="certificates">Certificates required</option>
+        <option value="cold">Temperature range check</option>
+        <option value="certificates">Check for CoA</option>
       </select>
     </div>
   )

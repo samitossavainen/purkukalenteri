@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react'
 import { Route, Routes } from 'react-router-dom'
+import { parseISO } from 'date-fns'
 import BookingDetailsModal from './components/BookingDetailsModal'
 import BookingModal from './components/BookingModal'
 import NavigationBar from './components/NavigationBar'
@@ -7,7 +8,7 @@ import BookingsPage from './pages/BookingsPage'
 import CalendarPage from './pages/CalendarPage'
 import WeatherPage from './pages/WeatherPage'
 import { loadBookings, TIME_SLOTS } from './utils/bookings'
-import { nextWeekdayDate } from './utils/dates'
+import { isPastSlot, nextWeekdayDate, shiftDate } from './utils/dates'
 
 export default function App() {
   const [bookings, setBookings] = useState(loadBookings)
@@ -18,8 +19,19 @@ export default function App() {
     window.localStorage.setItem('purkukalenteri-bookings', JSON.stringify(bookings))
   }, [bookings])
 
-  function openNewBooking(date = nextWeekdayDate(), time = TIME_SLOTS[0]) {
-    setEditingBooking({ date, time })
+  function openNewBooking(date, time) {
+    let bookingDate = date || nextWeekdayDate()
+    let bookingTime = time
+
+    if (!bookingTime) {
+      bookingTime = TIME_SLOTS.find((slot) => !isPastSlot(bookingDate, slot))
+      if (!bookingTime) {
+        bookingDate = nextWeekdayDate(shiftDate(parseISO(bookingDate), 1))
+        bookingTime = TIME_SLOTS[0]
+      }
+    }
+
+    setEditingBooking({ date: bookingDate, time: bookingTime })
   }
 
   function saveBooking(booking) {

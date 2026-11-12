@@ -1,4 +1,4 @@
-import { addDays as addDateDays, format, isSameMonth, startOfWeek } from 'date-fns'
+import { addDays as addDateDays, format, isBefore, isSameMonth, parseISO, startOfWeek } from 'date-fns'
 
 export function localDate(date) {
   return format(date, 'yyyy-MM-dd')
@@ -11,6 +11,11 @@ export function shiftDate(date, days) {
 export function nextWeekdayDate(date = new Date()) {
   const day = date.getDay()
   return localDate(day === 6 ? shiftDate(date, 2) : day === 0 ? shiftDate(date, 1) : date)
+}
+
+export function isPastSlot(date, time, now = new Date()) {
+  const slot = parseISO(`${date}T${time}:00`)
+  return isBefore(slot, now)
 }
 
 export function mondayOf(date) {

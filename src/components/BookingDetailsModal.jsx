@@ -13,11 +13,11 @@ export default function BookingDetailsModal({ booking, onClose, onEdit }) {
       </Modal.Header>
       <Modal.Body>
         <div className="details-grid">
-          <div className="detail-item"><span>Truck registration</span><strong>{booking.truckRegistration}</strong></div>
-          <div className="detail-item"><span>Destination</span><strong>{booking.destination}</strong></div>
-          <div className="detail-item detail-wide"><span>Cargo description</span><strong>{booking.cargoDescription}</strong></div>
-          <div className="detail-item"><span>Temperature controlled</span><strong>{booking.temperatureControlled ? 'Yes' : 'No'}</strong></div>
-          <div className="detail-item"><span>Certificates required</span><strong>{booking.certificatesRequired ? 'Yes' : 'No'}</strong></div>
+          <div className="detail-item"><span>Truck plate number</span><strong>{booking.truckRegistration || 'Not provided'}</strong></div>
+          <div className="detail-item"><span>Destination</span><strong>{booking.destination || 'Not provided'}</strong></div>
+          <div className="detail-item detail-wide"><span>Cargo description</span><strong>{booking.cargoDescription || 'Not provided'}</strong></div>
+          <div className="detail-item"><span>Temperature range check</span><strong>{booking.temperatureControlled ? 'Yes' : 'No'}</strong></div>
+          <div className="detail-item"><span>Check for CoA</span><strong>{booking.certificatesRequired ? 'Yes' : 'No'}</strong></div>
         </div>
       </Modal.Body>
       <Modal.Footer>

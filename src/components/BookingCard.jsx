@@ -13,18 +13,18 @@ export default function BookingCard({ booking, onView, onEdit, onDelete }) {
       <td>
         <span className="truck-cell">
           <span className="truck-icon"><Truck size={15} /></span>
-          <strong>{booking.truckRegistration}</strong>
+          <strong>{booking.truckRegistration || 'Not provided'}</strong>
         </span>
       </td>
       <td>
-        <strong>{booking.cargoDescription}</strong>
+        <strong>{booking.cargoDescription || 'Not provided'}</strong>
         <span className="table-subline">{booking.destination}</span>
       </td>
       <td>
         <div className="requirement-tags">
-          {booking.temperatureControlled && <span className="requirement-tag cold-tag"><Snowflake size={12} /> Cold</span>}
-          {booking.certificatesRequired && <span className="requirement-tag certificate-tag">Certificates</span>}
-          {!booking.temperatureControlled && !booking.certificatesRequired && <span className="no-requirements">None</span>}
+          {booking.temperatureControlled && <span className="requirement-tag cold-tag"><Snowflake size={12} /> Temp range check</span>}
+          {booking.certificatesRequired && <span className="requirement-tag certificate-tag">CoA check</span>}
+          {!booking.temperatureControlled && !booking.certificatesRequired && <span className="no-requirements">No checks</span>}
         </div>
       </td>
       <td>

@@ -8,9 +8,9 @@ export default function BookingTable({ bookings, onView, onEdit, onDelete }) {
         <tr>
           <th>REFERENCE</th>
           <th>ARRIVAL</th>
-          <th>TRUCK</th>
+          <th>TRUCK PLATE</th>
           <th>CARGO & DESTINATION</th>
-          <th>REQUIREMENTS</th>
+          <th>QUALITY CONTROL</th>
           <th><span className="visually-hidden">Actions</span></th>
         </tr>
       </thead>

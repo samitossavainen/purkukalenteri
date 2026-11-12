@@ -18,7 +18,7 @@ export default function BookingsPage({ bookings, onCreate, onView, onEdit, onDel
     .sort((a, b) => `${a.date} ${a.time}`.localeCompare(`${b.date} ${b.time}`)), [bookings, query, filter])
 
   function exportBookings() {
-    const header = ['Reference', 'Date', 'Time', 'Truck registration', 'Cargo', 'Destination', 'Temperature controlled', 'Certificates required']
+    const header = ['Reference', 'Date', 'Time', 'Truck plate number', 'Cargo', 'Destination', 'Temperature range check', 'Check for CoA']
     const rows = filteredBookings.map((booking) => [
       booking.referenceNumber, booking.date, booking.time, booking.truckRegistration,
       booking.cargoDescription, booking.destination, booking.temperatureControlled ? 'Yes' : 'No',
@@ -42,8 +42,8 @@ export default function BookingsPage({ bookings, onCreate, onView, onEdit, onDel
 
       <div className="booking-stats">
         <div><span>Total bookings</span><strong>{bookings.length}</strong></div>
-        <div><span>Temperature controlled</span><strong>{bookings.filter((booking) => booking.temperatureControlled).length}</strong></div>
-        <div><span>Certificates required</span><strong>{bookings.filter((booking) => booking.certificatesRequired).length}</strong></div>
+        <div><span>Temperature range checks</span><strong>{bookings.filter((booking) => booking.temperatureControlled).length}</strong></div>
+        <div><span>CoA checks</span><strong>{bookings.filter((booking) => booking.certificatesRequired).length}</strong></div>
       </div>
 
       <section className="management-panel">
@@ -58,7 +58,7 @@ export default function BookingsPage({ bookings, onCreate, onView, onEdit, onDel
             <div className="empty-icon"><Truck size={22} /></div>
             <h3>{query || filter !== 'all' ? 'No matching bookings' : 'Nothing scheduled yet'}</h3>
             <p>{query || filter !== 'all' ? 'Try adjusting your search or filter.' : 'Add your first unloading appointment to get started.'}</p>
-            {!query && filter === 'all' && <button className="btn btn-primary app-primary-button" onClick={onCreate}><Plus size={16} /> Create a booking</button>}
+            {!query && filter === 'all' && <button className="btn btn-primary app-primary-button" onClick={() => onCreate()}><Plus size={16} /> Create a booking</button>}
           </div>
         )}
         <div className="management-footer"><span>Showing {filteredBookings.length} of {bookings.length} bookings</span><span>Stored on this device</span></div>
@@ -71,7 +71,7 @@ export default function BookingsPage({ bookings, onCreate, onView, onEdit, onDel
               <div><div className="eyebrow">REMOVE APPOINTMENT</div><h2 id="delete-title">Delete this booking?</h2></div>
               <button className="icon-button" onClick={() => setDeleteTarget(null)} aria-label="Close"><X size={18} /></button>
             </div>
-            <p className="confirm-copy">Booking <strong>{deleteTarget.referenceNumber}</strong> for {deleteTarget.truckRegistration} will be permanently removed.</p>
+            <p className="confirm-copy">Booking <strong>{deleteTarget.referenceNumber}</strong> will be permanently removed.</p>
             <div className="modal-actions">
               <button className="btn btn-light app-secondary-button" onClick={() => setDeleteTarget(null)}>Cancel</button>
               <button className="btn btn-danger" onClick={() => { onDelete(deleteTarget.id); setDeleteTarget(null) }}>Delete booking</button>

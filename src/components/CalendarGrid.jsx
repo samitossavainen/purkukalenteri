@@ -66,9 +66,9 @@ export default function CalendarGrid({
       </div>
 
       <div className="calendar-legend">
-        <span><i className="legend-dot legend-blue" /> Standard unloading</span>
-        <span><i className="legend-dot legend-cold" /> Temperature controlled</span>
-        <span className="legend-note">Click any slot to add a booking</span>
+        <span><i className="legend-dot legend-standard" /> Standard unloading</span>
+        <span><i className="legend-dot legend-temperature" /> Temperature range check</span>
+        <span className="legend-note">Click an available slot to add a booking</span>
       </div>
     </section>
   )
