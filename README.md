@@ -2,6 +2,8 @@
 
 A React app for planning weekday unloading appointments and preparing for incoming deliveries.
 
+**Educational demo only:** This is not an operational scheduling system. Use synthetic sample data only. Bookings stay in the current browser's local storage, and CSV exports are downloaded locally; the app does not sync or back up either. A real-world system would require a separate development and security approval process.
+
 The calendar supports one active booking per weekday time slot. Reservations can be cancelled to free their slots while remaining in booking history and the total booking count. Selecting a booking opens its details; editing is a separate action. The weather view shows current conditions and the next 12 hourly forecasts for Kuopio, with an estimated icing advisory based on forecast temperature and precipitation. The advisory is informational and does not replace checking actual dock conditions.
 
 ## Run locally
@@ -51,13 +53,13 @@ If Node.js was just installed, restart VS Code so its terminal picks up the upda
 
 For later sessions, open the project folder and run `npm.cmd run dev` in Windows PowerShell, or `npm run dev` in other terminals. Dependencies only need to be installed again after changing the package files.
 
-Bookings are stored in the browser's local storage, so a fresh browser or device starts with an empty schedule and does not sync bookings with other devices. Weather data is fetched from Open-Meteo and requires an internet connection.
+Weather data is fetched from Open-Meteo and requires an internet connection. The weather request does not include booking data.
 
 The UI uses React-Bootstrap and Bootstrap, `date-fns` handles calendar dates, and `lucide-react` supplies icons.
 
 ## Source structure
 
-- `src/App.jsx` owns shared bookings, routing, and booking dialogs.
+- `src/App.jsx` owns app-level booking state, routing, and booking dialogs.
 - `src/pages/` contains the calendar, booking management, and weather screens.
 - `src/components/` contains the navigation, footer, and screen-level UI pieces.
 - `src/utils/` contains shared date, booking, and weather helpers.
@@ -82,4 +84,4 @@ npm run preview
 
 ## GitHub Pages (deployment step)
 
-GitHub Pages deployment is not required for local development and can be completed as the final project step. The workflow is manual-only, so normal pushes will not attempt to deploy. When ready, enable **Settings → Pages → GitHub Actions** and run **Deploy to GitHub Pages** from the Actions tab. The Vite base path is derived from the repository name, and hash-based routing keeps app routes working on GitHub Pages.
+GitHub Pages deployment is not required for local development and can be completed as the final project step. If published, use synthetic data only: Pages hosts the public demo, while bookings stay in each visitor's browser. The workflow is manual-only, so normal pushes will not attempt to deploy. When ready, enable **Settings → Pages → GitHub Actions** and run **Deploy to GitHub Pages** from the Actions tab. The Vite base path is derived from the repository name, and hash-based routing keeps app routes working on GitHub Pages.

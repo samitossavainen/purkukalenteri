@@ -1,10 +1,36 @@
 import { useEffect, useMemo, useState } from 'react'
 import { Alert, Button } from 'react-bootstrap'
 import { ArrowLeft, ChevronDown, Cloud, CloudSun } from 'lucide-react'
+import { isValid, parseISO } from 'date-fns'
 import ForecastCard from '../components/ForecastCard'
 import PageHeading from '../components/PageHeading'
 import WeatherCard from '../components/WeatherCard'
 import { getForecastIndices, icingAssessment, weatherDetails, WEATHER_URL } from '../utils/weather'
+
+function isValidForecast(data) {
+  const currentFields = [
+    'temperature_2m',
+    'relative_humidity_2m',
+    'apparent_temperature',
+    'precipitation',
+    'weather_code',
+    'wind_speed_10m',
+  ]
+  const hourlyFields = ['temperature_2m', 'precipitation', 'precipitation_probability', 'weather_code']
+
+  return Boolean(data?.current)
+    && typeof data.current.time === 'string'
+    && isValid(parseISO(data.current.time))
+    && currentFields.every((field) => Number.isFinite(data.current[field]))
+    && Array.isArray(data.hourly?.time)
+    && data.hourly.time.length > 0
+    && data.hourly.time.every((time) => typeof time === 'string' && isValid(parseISO(time)))
+    && hourlyFields.every((field) => (
+      Array.isArray(data.hourly[field])
+      && data.hourly[field].length === data.hourly.time.length
+      && data.hourly[field].every(Number.isFinite)
+    ))
+}
 
 export default function WeatherPage() {
   const [weather, setWeather] = useState(null)
@@ -18,7 +44,7 @@ export default function WeatherPage() {
       const response = await fetch(WEATHER_URL)
       if (!response.ok) throw new Error(`Weather service returned ${response.status}.`)
       const data = await response.json()
-      if (!data.current || !data.hourly?.time?.length) throw new Error('Weather service returned incomplete forecast data.')
+      if (!isValidForecast(data)) throw new Error('Weather service returned incomplete forecast data.')
       setWeather(data)
     } catch (requestError) {
       console.error('Could not load weather forecast.', requestError)

@@ -11,13 +11,32 @@ import { loadBookings, TIME_SLOTS } from './utils/bookings'
 import { isPastSlot, nextWeekdayDate, shiftDate } from './utils/dates'
 
 export default function App() {
-  const [bookings, setBookings] = useState(loadBookings)
+  const [initialStorage] = useState(() => {
+    try {
+      return { bookings: loadBookings(), error: '' }
+    } catch (error) {
+      console.error('Could not load saved bookings.', error)
+      return {
+        bookings: [],
+        error: 'Saved bookings could not be loaded. The stored data was left unchanged; repair it before continuing.',
+      }
+    }
+  })
+  const [bookings, setBookings] = useState(initialStorage.bookings)
+  const [storageError, setStorageError] = useState(initialStorage.error)
   const [editingBooking, setEditingBooking] = useState(null)
   const [selectedBooking, setSelectedBooking] = useState(null)
 
   useEffect(() => {
-    window.localStorage.setItem('purkukalenteri-bookings', JSON.stringify(bookings))
-  }, [bookings])
+    if (initialStorage.error) return
+    try {
+      window.localStorage.setItem('purkukalenteri-bookings', JSON.stringify(bookings))
+      setStorageError('')
+    } catch (error) {
+      console.error('Could not save bookings.', error)
+      setStorageError('Bookings could not be saved in this browser. Changes may be lost when you close the page.')
+    }
+  }, [bookings, initialStorage.error])
 
   function openNewBooking(date, time) {
     let bookingDate = date || nextWeekdayDate()
@@ -62,7 +81,7 @@ export default function App() {
 
   return (
     <div className="app-shell">
-      <NavigationBar bookingCount={bookings.length}>
+      <NavigationBar bookingCount={bookings.length} storageError={storageError}>
         <Routes>
           <Route
             path="/"

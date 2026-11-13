@@ -4,6 +4,12 @@ import BookingTable from '../components/BookingTable'
 import PageHeading from '../components/PageHeading'
 import SearchBar from '../components/SearchBar'
 
+function csvField(value) {
+  const text = String(value ?? '')
+  const safeText = /^[\s]*[=+\-@]/.test(text) ? `'${text}` : text
+  return `"${safeText.replaceAll('"', '""')}"`
+}
+
 export default function BookingsPage({ bookings, onCreate, onView, onEdit, onDelete }) {
   const [query, setQuery] = useState('')
   const [filter, setFilter] = useState('all')
@@ -29,7 +35,7 @@ export default function BookingsPage({ bookings, onCreate, onView, onEdit, onDel
       booking.cargoDescription, booking.destination, booking.temperatureControlled ? 'Yes' : 'No',
       booking.certificatesRequired ? 'Yes' : 'No', booking.cancelled ? 'Cancelled' : 'Scheduled',
     ])
-    const csv = [header, ...rows].map((row) => row.map((field) => `"${String(field).replaceAll('"', '""')}"`).join(',')).join('\n')
+    const csv = [header, ...rows].map((row) => row.map(csvField).join(',')).join('\n')
     const url = URL.createObjectURL(new Blob([csv], { type: 'text/csv;charset=utf-8' }))
     const link = document.createElement('a')
     link.href = url

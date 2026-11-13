@@ -7,10 +7,11 @@ import {
   Menu,
   Truck,
 } from 'lucide-react'
+import { Alert } from 'react-bootstrap'
 import { displayDate } from '../utils/dates'
 import Footer from './Footer'
 
-export default function NavigationBar({ bookingCount, children }) {
+export default function NavigationBar({ bookingCount, storageError, children }) {
   const [mobileNavOpen, setMobileNavOpen] = useState(false)
   const location = useLocation()
 
@@ -25,7 +26,7 @@ export default function NavigationBar({ bookingCount, children }) {
           <div className="brand-mark"><ArrowDownToLine size={21} strokeWidth={2.5} /></div>
           <div>
             <div className="brand-name">purku<span>kalenteri</span></div>
-            <div className="brand-caption">RECEIVING OPERATIONS</div>
+            <div className="brand-caption">EDUCATIONAL DEMO</div>
           </div>
         </div>
 
@@ -54,6 +55,7 @@ export default function NavigationBar({ bookingCount, children }) {
       )}
 
       <main className="main-panel">
+        {storageError && <Alert variant="warning" className="m-3 mb-0" role="alert">{storageError}</Alert>}
         <header className="topbar">
           <button className="mobile-menu icon-button" onClick={() => setMobileNavOpen((open) => !open)} aria-label="Toggle navigation">
             <Menu size={20} />
