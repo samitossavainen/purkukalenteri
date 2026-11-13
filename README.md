@@ -2,9 +2,9 @@
 
 A React app for planning weekday unloading appointments and preparing for incoming deliveries.
 
-**Educational demo only:** This is not an operational scheduling system. Use synthetic sample data only. Bookings stay in the current browser's local storage, and CSV exports are downloaded locally; the app does not sync or back up either. A real-world system would require a separate development and security approval process.
+**Educational demo only:** This is not an operational scheduling system. Use synthetic sample data only. Bookings stay in the current browser's local storage; they are not shared, synced, or backed up. Local development and the live site have separate storage. CSV exports are downloaded locally, and the app has no backend or database. A real-world system would require a separate development and security approval process.
 
-The calendar supports one active booking per weekday time slot. Reservations can be cancelled to free their slots while remaining in booking history and the total booking count. Selecting a booking opens its details; editing is a separate action. The weather view shows current conditions and the next 12 hourly forecasts for Kuopio, with an estimated icing advisory based on forecast temperature and precipitation. The advisory is informational and does not replace checking actual dock conditions.
+The calendar shows ISO week numbers and supports one active booking per weekday time slot. Bookings can include optional notes, which appear in the time-slot preview and booking details. Reservations can be cancelled to free their slots while remaining in booking history and the total booking count. The booking management view supports searching, filtering, editing, deletion, and CSV export. The weather view shows current conditions and the next 12 hourly forecasts for Kuopio, with an estimated icing advisory based on forecast temperature and precipitation. The advisory is informational and does not replace checking actual dock conditions.
 
 ## Run locally
 
@@ -53,9 +53,14 @@ If Node.js was just installed, restart VS Code so its terminal picks up the upda
 
 For later sessions, open the project folder and run `npm.cmd run dev` in Windows PowerShell, or `npm run dev` in other terminals. Dependencies only need to be installed again after changing the package files.
 
-Weather data is fetched from Open-Meteo and requires an internet connection. The weather request does not include booking data.
+## Technology and external services
 
-The UI uses React-Bootstrap and Bootstrap, `date-fns` handles calendar dates, and `lucide-react` supplies icons.
+- React and React Router provide the interface and hash-based navigation.
+- Bootstrap and React-Bootstrap provide styling and UI components.
+- `date-fns` handles date operations; `lucide-react` provides icons.
+- Vite runs the local development server and builds the static site.
+- Weather data is fetched from the public Open-Meteo REST API and requires an internet connection. The request does not include booking data.
+- DM Sans and Manrope are loaded from Google Fonts.
 
 ## Source structure
 
@@ -82,6 +87,8 @@ npm run build
 npm run preview
 ```
 
-## GitHub Pages (deployment step)
+## Live demo and deployment
 
-GitHub Pages deployment is not required for local development and can be completed as the final project step. If published, use synthetic data only: Pages hosts the public demo, while bookings stay in each visitor's browser. The workflow is manual-only, so normal pushes will not attempt to deploy. When ready, enable **Settings → Pages → GitHub Actions** and run **Deploy to GitHub Pages** from the Actions tab. The Vite base path is derived from the repository name, and hash-based routing keeps app routes working on GitHub Pages.
+The current public demo is available at [samitossavainen.github.io/purkukalenteri](https://samitossavainen.github.io/purkukalenteri/). GitHub Pages serves the static app; each visitor's bookings remain in that visitor's browser and are not visible to other users. Use synthetic data only.
+
+Deployment is intentionally manual so changes are published only after the project owner considers the project finished. Normal pushes do not deploy. To publish, set **Settings → Pages → Build and deployment source** to **GitHub Actions**, then run **Deploy to GitHub Pages** from the Actions tab. The workflow builds the app and deploys the `dist` output. The Vite base path is derived from the repository name, and hash-based routing keeps app routes working on GitHub Pages.
