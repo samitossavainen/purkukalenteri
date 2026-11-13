@@ -81,6 +81,7 @@ button { cursor: pointer; }
 .calendar-title-mark { display: grid; width: 34px; height: 34px; place-items: center; border: 1px solid #e9eef2; border-radius: 8px; color: #5e86a2; background: #f8fafb; }
 .calendar-title h2, .management-toolbar h2, .forecast-heading h2 { margin: 0; color: #2b414f; font-family: 'Manrope', sans-serif; font-size: 0.875rem; font-weight: 700; }
 .calendar-title p { margin: 4px 0 0; color: #8d99a1; font-size: 0.8125rem; }
+.calendar-week-number { margin-left: 4px; color: #647680; font-weight: 600; white-space: nowrap; }
 .calendar-controls { display: flex; align-items: center; gap: 8px; }
 .today-button { height: 29px; padding: 0 10px; border: 1px solid #e6eaed; color: #5f707b; background: white; font-size: 0.8125rem; }
 .week-arrows { display: flex; gap: 2px; padding: 2px; border: 1px solid #e9edef; border-radius: 8px; }
@@ -110,6 +111,8 @@ button { cursor: pointer; }
 .booking-card.booking-cold>strong { color: #294d7b; }
 .booking-destination { overflow: hidden; color: #4f7158; font-size: 0.6875rem; text-overflow: ellipsis; white-space: nowrap; }
 .booking-cold .booking-destination { color: #526f94; }
+.booking-notes { overflow: hidden; color: #5d7180; font-size: 0.65rem; line-height: 1.2; text-overflow: ellipsis; white-space: nowrap; }
+.booking-cold .booking-notes { color: #526f94; }
 .calendar-legend { display: flex; min-height: 42px; align-items: center; gap: 17px; padding: 0 17px; color: #84919a; font-size: 0.75rem; }
 .calendar-legend>span { display: flex; align-items: center; gap: 6px; white-space: nowrap; }
 .legend-dot { display: inline-block; width: 7px; height: 7px; border-radius: 2px; }

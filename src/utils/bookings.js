@@ -6,7 +6,7 @@ export const WEEKDAYS = ['Mon', 'Tue', 'Wed', 'Thu', 'Fri']
 function isStoredBooking(booking) {
   if (!booking || typeof booking !== 'object' || Array.isArray(booking)) return false
 
-  const optionalStrings = ['referenceNumber', 'truckRegistration', 'cargoDescription', 'destination']
+  const optionalStrings = ['referenceNumber', 'truckRegistration', 'cargoDescription', 'destination', 'notes']
   const optionalBooleans = ['temperatureControlled', 'certificatesRequired', 'cancelled']
 
   return typeof booking.id === 'string'
@@ -34,6 +34,7 @@ export function loadBookings() {
     truckRegistration: booking.truckRegistration || '',
     cargoDescription: booking.cargoDescription || '',
     destination: booking.destination ?? 'Tehdas',
+    notes: booking.notes || '',
     temperatureControlled: booking.temperatureControlled || false,
     certificatesRequired: booking.certificatesRequired || false,
     cancelled: booking.cancelled || false,

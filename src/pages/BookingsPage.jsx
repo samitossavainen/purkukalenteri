@@ -17,7 +17,7 @@ export default function BookingsPage({ bookings, onCreate, onView, onEdit, onDel
   const filteredBookings = useMemo(() => bookings
     .filter((booking) => {
       const search = query.trim().toLowerCase()
-      return !search || [booking.referenceNumber, booking.truckRegistration, booking.cargoDescription, booking.destination]
+      return !search || [booking.referenceNumber, booking.truckRegistration, booking.cargoDescription, booking.destination, booking.notes]
         .some((value) => value.toLowerCase().includes(search))
     })
     .filter((booking) => {
@@ -29,10 +29,10 @@ export default function BookingsPage({ bookings, onCreate, onView, onEdit, onDel
     .sort((a, b) => `${a.date} ${a.time}`.localeCompare(`${b.date} ${b.time}`)), [bookings, query, filter])
 
   function exportBookings() {
-    const header = ['Reference', 'Date', 'Time', 'Truck plate number', 'Cargo', 'Destination', 'Temperature range check', 'Check for CoA', 'Status']
+    const header = ['Reference', 'Date', 'Time', 'Truck plate number', 'Cargo', 'Destination', 'Notes', 'Temperature range check', 'Check for CoA', 'Status']
     const rows = filteredBookings.map((booking) => [
       booking.referenceNumber, booking.date, booking.time, booking.truckRegistration,
-      booking.cargoDescription, booking.destination, booking.temperatureControlled ? 'Yes' : 'No',
+      booking.cargoDescription, booking.destination, booking.notes, booking.temperatureControlled ? 'Yes' : 'No',
       booking.certificatesRequired ? 'Yes' : 'No', booking.cancelled ? 'Cancelled' : 'Scheduled',
     ])
     const csv = [header, ...rows].map((row) => row.map(csvField).join(',')).join('\n')

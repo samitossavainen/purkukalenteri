@@ -1,3 +1,4 @@
+import { getISOWeek } from 'date-fns'
 import { CalendarDays, ChevronLeft, ChevronRight } from 'lucide-react'
 import { TIME_SLOTS, WEEKDAYS } from '../utils/bookings'
 import { localDate, weekLabel } from '../utils/dates'
@@ -18,7 +19,10 @@ export default function CalendarGrid({
       <div className="calendar-toolbar">
         <div className="calendar-title">
           <span className="calendar-title-mark"><CalendarDays size={17} /></span>
-          <div><h2>Weekly schedule</h2><p>{weekLabel(days)}</p></div>
+          <div>
+            <h2>Weekly schedule</h2>
+            <p>{weekLabel(days)} <span className="calendar-week-number">· Week {getISOWeek(days[0])}</span></p>
+          </div>
         </div>
         <div className="calendar-controls">
           <button className="btn btn-sm btn-light today-button" onClick={onToday}>Today</button>

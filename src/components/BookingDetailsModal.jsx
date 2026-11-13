@@ -21,6 +21,7 @@ export default function BookingDetailsModal({ booking, onClose, onEdit, onCancel
           <div className="detail-item"><span>Truck plate number</span><strong>{booking.truckRegistration || 'Not provided'}</strong></div>
           <div className="detail-item"><span>Destination</span><strong>{booking.destination || 'Not provided'}</strong></div>
           <div className="detail-item detail-wide"><span>Cargo description</span><strong>{booking.cargoDescription || 'Not provided'}</strong></div>
+          {booking.notes?.trim() && <div className="detail-item detail-wide"><span>Additional information / notes</span><strong>{booking.notes}</strong></div>}
           <div className="detail-item"><span>Temperature range check</span><strong>{booking.temperatureControlled ? 'Yes' : 'No'}</strong></div>
           <div className="detail-item"><span>Check for CoA</span><strong>{booking.certificatesRequired ? 'Yes' : 'No'}</strong></div>
         </div>

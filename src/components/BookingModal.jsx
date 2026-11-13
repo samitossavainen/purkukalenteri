@@ -15,6 +15,7 @@ export default function BookingModal({ booking, bookings, onClose, onSave }) {
     truckRegistration: booking.truckRegistration || '',
     cargoDescription: booking.cargoDescription || '',
     destination: booking.destination || 'Tehdas',
+    notes: booking.notes || '',
     temperatureControlled: booking.temperatureControlled || false,
     certificatesRequired: booking.certificatesRequired || false,
   })
@@ -147,6 +148,18 @@ export default function BookingModal({ booking, bookings, onClose, onSave }) {
               <Form.Group controlId="destination" className="form-field">
                 <Form.Label>Destination</Form.Label>
                 <Form.Control value={form.destination} onChange={(event) => update('destination', event.target.value)} placeholder="e.g. Warehouse A" />
+              </Form.Group>
+            </Col>
+            <Col md={12}>
+              <Form.Group controlId="notes" className="form-field">
+                <Form.Label>Additional information / notes</Form.Label>
+                <Form.Control
+                  as="textarea"
+                  rows={3}
+                  value={form.notes}
+                  onChange={(event) => update('notes', event.target.value)}
+                  placeholder="Optional handling instructions or other details"
+                />
               </Form.Group>
             </Col>
           </Row>

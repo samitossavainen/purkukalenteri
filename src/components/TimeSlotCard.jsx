@@ -10,7 +10,7 @@ export default function TimeSlotCard({ date, time, booking, onCreate, onView }) 
         <button
           className={`booking-card ${booking.temperatureControlled ? 'booking-cold' : ''}`}
           onClick={() => onView(booking)}
-          title={`View ${booking.referenceNumber}`}
+          title={`View ${booking.referenceNumber}${booking.notes ? `: ${booking.notes}` : ''}`}
         >
           <span className="booking-card-top">
             <span className="booking-reference">{booking.referenceNumber}</span>
@@ -18,6 +18,7 @@ export default function TimeSlotCard({ date, time, booking, onCreate, onView }) 
           </span>
           <strong>{booking.truckRegistration || 'Plate not provided'}</strong>
           <span className="booking-destination">{booking.destination || 'Not provided'}</span>
+          {booking.notes?.trim() && <span className="booking-notes">{booking.notes}</span>}
         </button>
       ) : (
         <button
